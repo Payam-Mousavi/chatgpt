@@ -10,6 +10,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.chains.question_answering import load_qa_chain
 import pinecone
 PINECONE_API_ENV = "northamerica-northeast1-gcp"
@@ -47,7 +48,8 @@ def answer_query():
     entered_query = query.get()
     docs = docsearch.similarity_search(entered_query, include_metadata=True)
 
-    llm = OpenAI(temperature=0, model_name="text-davinci-003")
+    # llm = OpenAI(temperature=0, model_name="text-davinci-003")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
     chain = load_qa_chain(llm, chain_type="stuff")
 
     output = chain.run(input_documents=docs, question=entered_query)

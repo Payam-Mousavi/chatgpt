@@ -54,6 +54,7 @@ def answer_query():
 
     output = chain.run(input_documents=docs, question=entered_query)
     # Insert the new content at the beginning of the text field
+    answer_text.delete(1.0, tk.END)
     answer_text.insert(tk.INSERT, output)
 
 def clear_fields():
@@ -62,6 +63,7 @@ def clear_fields():
 
 root = tk.Tk()
 root.title("Chat with the PDF!")
+# root.configure(bg="light blue")
 
 # Link to PDF
 pdf_link = tk.StringVar()
